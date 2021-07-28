@@ -2,19 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\State;
+use App\Repositories\StateRepository;
+
 use Illuminate\Http\Request;
 
 class StateController extends Controller
 {
+    private $stateRepository;
+
+    public function __construct(StateRepository $stateRepository)
+    {
+        $this->stateRepository = $stateRepository;
+    }
+
     /**
-     * Display a listing of the States.
+     * Return  listing All States.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Json
      */
     public function index()
     {
-        return State::all();
+        return $this->stateRepository->list();
     }
 
     /**
@@ -44,9 +52,9 @@ class StateController extends Controller
      * @param  \App\Models\State  $state  
      * @return \Illuminate\Http\Response
      */
-    public function show(State $state)
+    public function show($state)
     {
-        return $state;
+        return $this->stateRepository->findState($state);
     }
 
     /**
