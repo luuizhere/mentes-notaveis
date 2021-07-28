@@ -13,15 +13,21 @@ class StateRepository
 		$this->state = $state;
 	}
 
+    /**
+     * List all States not deleted
+     */
 	public function list()
 	{
 		return $this->state->all()->toJson();
 	}    
 
-    public function findState($stateId)
+    /**
+     * Find State with ID
+     */
+    public function findState(int $stateId)
     {
         if(!$this->state->find($stateId)){
-            return ['Not Found State'];
+            return response()->json(['State not found'],404);
         }
         return $this->state->find($stateId)->toJson();
     }
