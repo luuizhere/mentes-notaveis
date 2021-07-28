@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Repositories\StateRepository;
 
 class UserController extends Controller
 {
+    private $stateRepository;
+
+    public function __construct(StateRepository $stateRepository)
+    {
+        $this->stateRepository = $stateRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -81,5 +88,10 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function FindByState($stateId)
+    {
+        return  User::all();
     }
 }
