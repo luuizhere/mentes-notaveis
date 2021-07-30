@@ -28,22 +28,12 @@ class StateController extends Controller
     /**
      * Receive Request for creating a new State.
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Receive Request for creating a new State.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        return $this->stateRepository->insert($request);
     }
 
     /**
@@ -57,16 +47,6 @@ class StateController extends Controller
         return $this->stateRepository->find($state);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\State  $state
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(State $state)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -86,8 +66,8 @@ class StateController extends Controller
      * @param  \App\Models\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function destroy(State $state)
+    public function destroy(int $stateId)
     {
-        //
+        return $this->stateRepository->delete($stateId);
     }
 }

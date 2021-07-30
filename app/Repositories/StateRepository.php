@@ -41,4 +41,26 @@ class StateRepository
                            ->where('states.id',$stateId)
                            ->count();
     }
+
+
+    public function insert($request)
+    {
+        if(!$this->state->insert([['name' => $request->name]]))
+        {
+            return response()->json(['Erro ao inserir o Estado']);
+        }
+        return response()->json(['Inserido com sucesso'],202);
+    }
+
+    public function delete($stateId)
+    {
+        $state = $this->state->find($stateId);
+        if(!$state)
+            return response()->json(['Erro, Estado não encontrado'],404);
+
+        if($state->delete())
+            return response()->json(['Estado removido com sucesso'],202);   
+
+        return response()->json(['Erro ao remover o estado'],500);
+    }
 }
