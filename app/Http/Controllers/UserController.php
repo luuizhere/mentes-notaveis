@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Repositories\StateRepository;
+use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    private $stateRepository;
+    private $stateRepository, $userRepository;
 
-    public function __construct(StateRepository $stateRepository)
+    public function __construct(StateRepository $stateRepository, UserRepository $userRepository)
     {
         $this->stateRepository = $stateRepository;
+        $this->userRepository = $userRepository;
     }
     /**
      * Display a listing of the resource.
@@ -21,7 +25,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return $this->userRepository->list();
     }
 
     /**
@@ -51,9 +55,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($userId)
     {
-        //
+        return $this->userRepository->find($userId);
     }
 
     /**
@@ -90,8 +94,16 @@ class UserController extends Controller
         //
     }
 
+    /**
+     * Find total registered users by state
+     * Return Total integer 
+     * @return Int Total
+     */
     public function FindByState($stateId)
     {
-        return  User::all();
+        return response()->json(['Total' => $this->stateRepository->findUserByState($stateId)],200);
+ 
     }
+
+   
 }

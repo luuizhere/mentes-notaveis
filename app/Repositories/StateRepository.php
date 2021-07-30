@@ -26,11 +26,19 @@ class StateRepository
      *  @param  \App\Models\State  ID
      *  @return \Illuminate\Http\Json
      */
-    public function findState(int $stateId)
+    public function find(int $stateId)
     {
         if(!$this->state->find($stateId)){
             return response()->json(['State not found'], 404);
         }
         return $this->state->find($stateId)->toJson();
+    }
+
+    public function findUserByState(int $stateId){
+        return $this->state->Join('cities','cities.state_id','=','states.id')
+                           ->Join('addresses','addresses.city_id','=','cities.id')
+                           ->Join('users','users.address_id','=','addresses.id')
+                           ->where('states.id',$stateId)
+                           ->count();
     }
 }

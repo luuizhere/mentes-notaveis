@@ -54,7 +54,7 @@ class StateController extends Controller
      */
     public function show($state)
     {
-        return $this->stateRepository->findState($state);
+        return $this->stateRepository->find($state);
     }
 
     /**

@@ -13,5 +13,7 @@ class User extends Model
 
     public function address(){
         return $this->belongsTo(Address::class,'address_id','id');
+        // return $this->hasMany(Address::class);
     }
+
 }

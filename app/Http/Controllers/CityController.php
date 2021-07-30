@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\City;
+use App\Repositories\CityRepository;
 use Illuminate\Http\Request;
 
 class CityController extends Controller
 {
+    private $cityRepository;
+
+    public function __construct(CityRepository $cityRepository)
+    {
+        $this->cityRepository = $cityRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,7 @@ class CityController extends Controller
      */
     public function index()
     {
-        return City::all();
+        return $this->cityRepository->list();
     }
 
     /**
@@ -44,9 +51,9 @@ class CityController extends Controller
      * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function show(City $city)
+    public function show($cityId)
     {
-        return $city;
+        return $this->cityRepository->find($cityId);
     }
 
     /**
