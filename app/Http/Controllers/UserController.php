@@ -3,20 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\State;
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Repositories\StateRepository;
 use App\Repositories\UserRepository;
+use App\Repositories\CityRepository;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    private $stateRepository, $userRepository;
+    private $stateRepository, $userRepository, $cityRepository;
 
-    public function __construct(StateRepository $stateRepository, UserRepository $userRepository)
+    public function __construct(StateRepository $stateRepository, UserRepository $userRepository, CityRepository $cityRepository)
     {
         $this->stateRepository = $stateRepository;
         $this->userRepository = $userRepository;
+        $this->cityRepository = $cityRepository;
     }
     /**
      * Display a listing of the resource.
@@ -102,6 +103,17 @@ class UserController extends Controller
     public function FindByState($stateId)
     {
         return response()->json(['Total' => $this->stateRepository->findUserByState($stateId)],200);
+ 
+    }
+
+    /**
+     * Find total registered users by city
+     * Return Total integer 
+     * @return Int Total
+     */
+    public function FindByCity($cityId)
+    {
+        return response()->json(['Total' => $this->cityRepository->findUserByCity($cityId)],200);
  
     }
 

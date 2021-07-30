@@ -28,4 +28,11 @@ class CityRepository
         }
         return $this->cities->find($cityId)->toJson();
     }
+
+    public function findUserByCity(int $cityId){
+        return $this->cities->Join('addresses','addresses.city_id','=','cities.id')
+                           ->Join('users','users.address_id','=','addresses.id')
+                           ->where('cities.id',$cityId)
+                           ->count();
+    }
 }
