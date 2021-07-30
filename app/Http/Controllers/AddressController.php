@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address;
+use App\Repositories\AddressRepository;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
+    private $addressRepository;
+
+    public function __construct(AddressRepository $addressRepository)
+    {
+        $this->addressRepository = $addressRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +20,7 @@ class AddressController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->addressRepository->list();
     }
 
     /**
@@ -35,7 +31,7 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->addressRepository->insert($request);
     }
 
     /**
@@ -44,21 +40,11 @@ class AddressController extends Controller
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function show(Address $address)
+    public function show($addressId)
     {
-        //
+        return $this->addressRepository->find($addressId);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Address  $address
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Address $address)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -78,8 +64,8 @@ class AddressController extends Controller
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Address $address)
+    public function destroy($addressId)
     {
-        //
+        return $this->addressRepository->delete($addressId);
     }
 }

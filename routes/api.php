@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('user','UserController');
 
-Route::get('user/state/{stateId}','UserController@FindByState');
-Route::get('user/city/{cityId}','UserController@FindByCity');
+Route::get('state/{stateId}/user','UserController@FindByState');
+Route::get('city/{cityId}/user','UserController@FindByCity');
 
 Route::resource('city','CityController');
 

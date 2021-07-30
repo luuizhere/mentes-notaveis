@@ -25,16 +25,6 @@ class CityController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -42,7 +32,7 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->cityRepository->insert($request);
     }
 
     /**
@@ -56,17 +46,7 @@ class CityController extends Controller
         return $this->cityRepository->find($cityId);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\City  $city
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(City $city)
-    {
-        //
-    }
-
+   
     /**
      * Update the specified resource in storage.
      *
@@ -85,8 +65,8 @@ class CityController extends Controller
      * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function destroy(City $city)
+    public function destroy(int $cityId)
     {
-        //
+        return $this->cityRepository->delete($cityId);
     }
 }

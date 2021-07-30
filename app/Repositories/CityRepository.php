@@ -35,4 +35,27 @@ class CityRepository
                            ->where('cities.id',$cityId)
                            ->count();
     }
+
+    public function insert($request)
+    {
+        if(!$this->cities->insert([['name' => $request->name,
+                                    'state_id' => $request->state_id
+                                 ]]))
+        {
+            return response()->json(['Erro ao inserir o Estado']);
+        }
+        return response()->json(['Inserido com sucesso'],202);
+    }
+
+    public function delete($stateId)
+    {
+        $city = $this->cities->find($stateId);
+        if(!$city)
+            return response()->json(['Erro, Cidade não encontrada'],404);
+
+        if($city->delete())
+            return response()->json(['Cidade removida com sucesso'],202);   
+
+        return response()->json(['Erro ao remover a cidade'],500);
+    }
 }
