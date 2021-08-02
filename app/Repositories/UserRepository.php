@@ -18,7 +18,19 @@ class UserRepository
      */
 	public function list()
 	{
-		return $this->users->all()->toJson();
+        $users = [] ;
+
+        foreach($this->users->orderBy('name')->get() as $user)
+        {
+           array_push($users,[
+                                'Id' => $user->id,
+                                'Nome' => $user->name,
+                                'Endereço' => $user->address->name,
+                                'Cidade ' => $user->address->city->name,
+                                'Estado' => $user->address->city->state->name,
+                            ]);
+        }
+		return $users;
 	}   
 
     public function find(int $userId)

@@ -10,6 +10,7 @@ class Address extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+    protected $hidden = ['updated_at','created_at'];
 
     public function city(){
         return $this->belongsTo(City::class,'city_id','id');

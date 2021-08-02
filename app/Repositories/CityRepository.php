@@ -18,7 +18,17 @@ class CityRepository
      */
 	public function list()
 	{
-		return $this->cities->all()->toJson();
+        $cities = [] ;
+
+        foreach($this->cities->orderBy('name')->get() as $city)
+        {
+           array_push($cities,[
+                                  'Id' => $city->id,
+                                  'Cidade ' => $city->name,
+                                  'Estado' => $city->state->name,
+                                 ]);
+        }
+		return $cities;
 	}   
 
     public function find(int $cityId)

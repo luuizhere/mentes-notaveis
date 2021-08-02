@@ -18,7 +18,20 @@ class AddressRepository
      */
 	public function list()
 	{
-		return $this->address->all()->toJson();
+		$addresses = [] ;
+
+        foreach($this->address->orderBy('name')->get() as $address)
+        {
+           array_push($addresses,[
+                                  'Id' => $address->id,
+                                  'Endereço ' => $address->name,
+                                  'Cidade' => $address->city->name,
+                                  'Estado' => $address->city->state->name,
+
+                                 ]);
+        }
+
+        return $addresses;
 	}   
 
     public function find(int $addressId)
