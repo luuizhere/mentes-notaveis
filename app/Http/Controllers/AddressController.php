@@ -55,7 +55,7 @@ class AddressController extends Controller
      */
     public function update(Request $request)
     {
-        //
+        return $this->addressRepository->update($request->all());
     }
 
     /**

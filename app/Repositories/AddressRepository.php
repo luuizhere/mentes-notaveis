@@ -44,13 +44,26 @@ class AddressRepository
 
     public function insert($request)
     {
-        if(!$this->address->insert([['name' => $request->name,
-                                   'city_id' => $request->city_id
-                                 ]]))
+        if(!$this->address->insert([
+                                    ['name' => $request->name,'city_id' => $request->city_id]
+                                   ])
+          )
         {
             return response()->json(['Erro ao inserir o Endereço']);
         }
         return response()->json(['Inserido com sucesso'],202);
+    }
+
+    public function update($request)
+    {
+        $address = $this->address->find($request->id);
+        if(!$address)
+        {
+            return response()->json(['Endereço não encontrado'], 404);
+        }
+
+        $address->update($request);
+        return $this->address->find($request->id)->toJson();
     }
 
     public function delete($addressId)
