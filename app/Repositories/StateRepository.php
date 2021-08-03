@@ -63,4 +63,16 @@ class StateRepository
 
         return response()->json(['Erro ao remover o estado'],500);
     }
+    
+    public function update($userId, $request)
+    {
+        $state = $this->state->find($userId);
+        if(!$state)
+            return response()->json(['Erro, Estado não encontrado'],404);
+
+        if($state->update($request))
+            return response()->json(['Estado alterado com sucesso'],202);   
+
+        return response()->json(['Erro ao remover o Estado'],500);
+    }
 }

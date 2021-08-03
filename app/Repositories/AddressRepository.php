@@ -54,18 +54,6 @@ class AddressRepository
         return response()->json(['Inserido com sucesso'],202);
     }
 
-    public function update($request)
-    {
-        $address = $this->address->find($request->id);
-        if(!$address)
-        {
-            return response()->json(['Endereço não encontrado'], 404);
-        }
-
-        $address->update($request);
-        return $this->address->find($request->id)->toJson();
-    }
-
     public function delete($addressId)
     {
         $address = $this->address->find($addressId);
@@ -76,5 +64,17 @@ class AddressRepository
             return response()->json(['Endereço removido com sucesso'],202);   
 
         return response()->json(['Erro ao remover o Endereço'],500);
+    }
+    
+    public function update($addressId, $request)
+    {
+        $address = $this->address->find($addressId);
+        if(!$address)
+            return response()->json(['Erro, Endereço não encontrada'],404);
+
+        if($address->update($request))
+            return response()->json(['Endereço alterada com sucesso'],202);   
+
+        return response()->json(['Erro ao remover a Endereço'],500);
     }
 }

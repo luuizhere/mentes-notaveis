@@ -63,4 +63,16 @@ class UserRepository
 
         return response()->json(['Erro ao remover o Usuario'],500);
     }
+
+    public function update($userId, $request)
+    {
+        $user = $this->users->find($userId);
+        if(!$user)
+            return response()->json(['Erro, Usuario não encontrado'],404);
+
+        if($user->update($request))
+            return response()->json(['Usuario alterado com sucesso'],202);   
+
+        return response()->json(['Erro ao remover o Usuario'],500);
+    }
 }

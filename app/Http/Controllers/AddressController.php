@@ -45,7 +45,6 @@ class AddressController extends Controller
         return $this->addressRepository->find($addressId);
     }
 
-
     /**
      * Update the specified resource in storage.
      *
@@ -53,9 +52,9 @@ class AddressController extends Controller
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update($addressId, Request $request)
     {
-        return $this->addressRepository->update($request->all());
+        return $this->addressRepository->update($addressId,$request->all());
     }
 
     /**

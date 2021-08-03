@@ -68,4 +68,16 @@ class CityRepository
 
         return response()->json(['Erro ao remover a cidade'],500);
     }
+
+    public function update($cityId, $request)
+    {
+        $city = $this->cities->find($cityId);
+        if(!$city)
+            return response()->json(['Erro, Cidade não encontrada'],404);
+
+        if($city->update($request))
+            return response()->json(['Cidade alterada com sucesso'],202);   
+
+        return response()->json(['Erro ao remover a Cidade'],500);
+    }
 }

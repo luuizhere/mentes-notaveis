@@ -42,9 +42,9 @@ class StateController extends Controller
      * @param  \App\Models\State  $state  
      * @return \Illuminate\Http\Response
      */
-    public function show($state)
+    public function show($stateId)
     {
-        return $this->stateRepository->find($state);
+        return $this->stateRepository->find($stateId);
     }
 
 
@@ -55,9 +55,9 @@ class StateController extends Controller
      * @param  \App\Models\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, State $state)
+    public function update($stateId, Request $request)
     {
-        //
+        return $this->stateRepository->update($stateId,$request->all());
     }
 
     /**

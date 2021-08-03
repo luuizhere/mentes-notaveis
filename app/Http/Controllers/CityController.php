@@ -54,9 +54,9 @@ class CityController extends Controller
      * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, City $city)
+    public function update($cityId, Request $request)
     {
-        //
+        return $this->cityRepository->update($cityId,$request->all());
     }
 
     /**
